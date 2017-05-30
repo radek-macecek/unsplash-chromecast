@@ -232,13 +232,22 @@ function getPictures(element) {
 }
 
 function component () {
+    var main = document.createElement('div');
+    main.style.transform = 'rotateZ(90deg)';
+
     var element = document.createElement('div');
-    element.style.width = '100vw';
-    element.style.height = '100vh';
+    element.style.width = '100vh';
+    element.style.height = '100vw';
+    //element.style.transform = 'rotateZ(90deg)';
     element.style.backgroundSize = 'cover';
-    element.style.backgroundPositionY = 'center';
+    //element.style.backgroundPositionX = 'left';
+    //element.style.backgroundPositionY = 'top';
+    //element.style.position = 'fixed';
+    //element.style.left = 0;
+    //element.style.top = 0;
     setPicture(element);
-    return element;
+    main.appendChild(element);
+    return main;
 }
 
 document.body.appendChild(component());
