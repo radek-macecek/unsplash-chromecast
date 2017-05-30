@@ -207,7 +207,7 @@ const images = [];
 
 function setPicture(element) {
     if (images.length > 0) {
-        const url = images.pop().urls.regular.replace('w=1080', 'w=1920');
+        const url = images.pop().urls.regular;//.replace('w=1080', 'w=1920');
         var img = new Image();
         img.onload = () => {
             element.style.backgroundImage = `url('${url}')`;
@@ -221,7 +221,7 @@ function setPicture(element) {
 }
 
 function getPictures(element) {
-    unsplash.photos.getRandomPhoto({orientation: 'landscape', query: 'person', count: 30})
+    unsplash.photos.getRandomPhoto({orientation: 'portrait', query: 'person', count: 30})
         .then(__WEBPACK_IMPORTED_MODULE_0_unsplash_js__["toJson"])
         .then(json => {
             console.log('1', images);
