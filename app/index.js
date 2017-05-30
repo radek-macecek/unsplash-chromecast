@@ -10,7 +10,7 @@ const images = [];
 
 function setPicture(element) {
     if (images.length > 0) {
-        const url = images.pop().urls.full;
+        const url = images.pop().urls.regular.replace('w=1080', 'w=1920');
         var img = new Image();
         img.onload = () => {
             element.style.backgroundImage = `url('${url}')`;
