@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      body {
+        overflow:hidden;
+        background: #000;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <title>Unsplash player</title>
+  </head>
+  <body>
+    <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
+    <script type="text/javascript">
+      window.onload = function() {
+        cast.receiver.logger.setLevelValue(0);
+        window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
+        console.log('Starting Receiver Manager');
+
+        // handler for the 'ready' event
+        castReceiverManager.onReady = function(event) {
+          console.log('Received Ready event: ' + JSON.stringify(event.data));
+          window.castReceiverManager.setApplicationState('Application status is ready...');
+        };
+
+        // handler for 'senderconnected' event
+        castReceiverManager.onSenderConnected = function(event) {
+          console.log('Received Sender Connected event: ' + event.data);
+          console.log(window.castReceiverManager.getSender(event.data).userAgent);
+        };
+
+        // handler for 'senderdisconnected' event
+        castReceiverManager.onSenderDisconnected = function(event) {
+          console.log('Received Sender Disconnected event: ' + event.data);
+          if (window.castReceiverManager.getSenders().length == 0) {
+            //window.close();
+          }
+        };
+
+        // initialize the CastReceiverManager with an application status message
+        window.castReceiverManager.start({statusText: 'Application is starting'});
+        console.log('Receiver Manager started');
+      };
+    </script>
+    <script src="./bundle.js"></script>
+  </body>
+</html>
+
