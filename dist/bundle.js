@@ -206,6 +206,7 @@ const unsplash = new __WEBPACK_IMPORTED_MODULE_0_unsplash_js___default.a({
 const images = [];
 const orientation = 'landscape'; //'portrait';
 const query = 'person';
+const interval = 10000;
 
 function setPicture(element) {
     if (images.length > 0) {
@@ -213,7 +214,7 @@ function setPicture(element) {
         var img = new Image();
         img.onload = () => {
             element.style.backgroundImage = `url('${url}')`;
-            setTimeout(() => setPicture(element), 10000);
+            setTimeout(() => setPicture(element), interval);
         };
         img.src = url;
     } else {
@@ -243,6 +244,7 @@ function component () {
         element.style.height = '100vh';
     }
 
+    element.style.filter = 'grayscale(100%)';
     element.style.backgroundSize = 'cover';
     setPicture(element);
     main.appendChild(element);
