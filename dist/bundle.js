@@ -204,47 +204,46 @@ const unsplash = new __WEBPACK_IMPORTED_MODULE_0_unsplash_js___default.a({
 });
 
 const images = [];
+const orientation = 'landscape'; //'portrait';
+const query = 'person';
 
 function setPicture(element) {
     if (images.length > 0) {
-        const url = images.pop().urls.regular;//.replace('w=1080', 'w=1920');
+        const url = images.pop().urls.regular.replace('w=1080', 'w=1920');
         var img = new Image();
         img.onload = () => {
             element.style.backgroundImage = `url('${url}')`;
             setTimeout(() => setPicture(element), 10000);
         };
         img.src = url;
-        console.log('3', images);
     } else {
         setTimeout(() => getPictures(element), 500);
     }
 }
 
 function getPictures(element) {
-    unsplash.photos.getRandomPhoto({orientation: 'portrait', query: 'person', count: 30})
+    unsplash.photos.getRandomPhoto({orientation, query, count: 30})
         .then(__WEBPACK_IMPORTED_MODULE_0_unsplash_js__["toJson"])
         .then(json => {
-            console.log('1', images);
             json.map(item => images.push(item));
-            console.log('2', images);
             setPicture(element);
         });
 }
 
 function component () {
     var main = document.createElement('div');
-    main.style.transform = 'rotateZ(90deg)';
-
     var element = document.createElement('div');
-    element.style.width = '100vh';
-    element.style.height = '100vw';
-    //element.style.transform = 'rotateZ(90deg)';
+
+    if (orientation === 'portrait') {
+        main.style.transform = 'rotateZ(90deg)';
+        element.style.width = '100vh';
+        element.style.height = '100vw';
+    } else {
+        element.style.width = '100vw';
+        element.style.height = '100vh';
+    }
+
     element.style.backgroundSize = 'cover';
-    //element.style.backgroundPositionX = 'left';
-    //element.style.backgroundPositionY = 'top';
-    //element.style.position = 'fixed';
-    //element.style.left = 0;
-    //element.style.top = 0;
     setPicture(element);
     main.appendChild(element);
     return main;
