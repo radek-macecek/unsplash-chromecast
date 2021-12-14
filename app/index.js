@@ -24,7 +24,7 @@ function setPicture(element) {
 }
 
 function getPictures(element) {
-    unsplash.photos.getRandomPhoto({orientation: 'landscape', query: 'person', count: 30})
+    unsplash.photos.getRandomPhoto({orientation: 'landscape', query: 'nature', count: 30})
         .then(toJson)
         .then(json => {
             console.log('1', images);
